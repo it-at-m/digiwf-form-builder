@@ -191,7 +191,7 @@ export default class VFormContainer extends Vue {
     if (event && event.added) {
       event.added.element[0] = generateUUID();
     }
-    let props: any = {};
+    const props: any = {};
     this.properties.forEach((property: any) => props[property[0]] = property[1]);
     this.input(
         {
@@ -212,7 +212,7 @@ export default class VFormContainer extends Vue {
 
   onFieldRemoved(key: string): any {
     const relevantFields = this.properties.filter((el: any) => el[0] != key);
-    let props: any = {};
+    const props: any = {};
     relevantFields.forEach((property: any) => props[property[0]] = property[1]);
     this.input(
         {
@@ -223,7 +223,7 @@ export default class VFormContainer extends Vue {
   }
 
   onFormFieldChanged(update: any) {
-    let props: any = {};
+    const props: any = {};
     for (let i = 0; i < this.properties.length; i++) {
       const property = this.properties[i];
       if (property[0] === update.key) {
