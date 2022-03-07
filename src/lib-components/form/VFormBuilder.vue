@@ -34,8 +34,9 @@
 
 <style>
 
-.read-only {
-  margin-bottom: 5px;
+.container-header > div:first-child {
+  padding: 0 !important;
+  margin: 0;
 }
 
 .contentWrapper {
