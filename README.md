@@ -114,11 +114,11 @@ Vue.use(builderPlugin);
 3. use it
 
 ```
-    <VFormBuilder
-      @input="onFormChange"
-      :value="value"
-      :builder-settings="builderSettings">
-    </VFormBuilder>
+<VFormBuilder
+    @input="onFormChange"
+    :value="value"
+    :builder-settings="builderSettings">
+</VFormBuilder>
 ```
 
 <!-- ROADMAP -->
