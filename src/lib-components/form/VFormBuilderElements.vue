@@ -3,7 +3,7 @@
     elevation="1"
     class="palette contentWrapper"
   >
-    <h4 class="pl-5 pt-5">Abschnitte</h4>
+    <h4 class="pl-5 pt-5">Sections</h4>
     <div class="field-divider"></div>
     <draggable
       :list="settings.modelerPalette.sections"
@@ -42,7 +42,7 @@
     </draggable>
 
     <div style="margin-bottom: 20px"></div>
-    <h4 class="pl-5">Objekte</h4>
+    <h4 class="pl-5">Objects</h4>
     <div class="field-divider"></div>
     <draggable
       v-for="field in settings.modelerPalette.objects"
@@ -64,7 +64,7 @@
     </draggable>
 
     <div style="margin-bottom: 20px"></div>
-    <h4 class="pl-5">Standard Felder</h4>
+    <h4 class="pl-5">Form Fields</h4>
     <div class="field-divider"></div>
     <draggable
       v-for="field in settings.modelerPalette.formFields"
