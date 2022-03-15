@@ -96,6 +96,30 @@ the [Documentation](https://koumoul-dev.github.io/vuetify-jsonschema-form/latest
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
+## Usage
+
+The package can be used by following these steps:
+
+1. install the package
+
+``npm install @muenchen/digiwf-form-builder --save``
+
+2. import form and/or renderer in main.ts
+```
+import builderPlugin from "@muenchen/digiwf-form-builder";
+
+Vue.use(builderPlugin);
+```
+
+3. use it
+
+```
+    <VFormBuilder
+      @input="onFormChange"
+      :value="value"
+      :builder-settings="builderSettings">
+    </VFormBuilder>
+```
 
 <!-- ROADMAP -->
 

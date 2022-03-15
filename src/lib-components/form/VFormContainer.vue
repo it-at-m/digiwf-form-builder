@@ -142,12 +142,10 @@ import {FormFieldContainer} from "@/types/Form";
 import VFormField from "@/lib-components/form/VFormField.vue";
 import VEditContainerModal from "@/lib-components/modal/VEditContainerModal.vue";
 import {generateUUID} from "@/utils/UUIDGenerator";
-import VFormObject from "@/lib-components/form/VFormObject.vue";
-import VFormArrayObject from "@/lib-components/form/VFormArrayObject.vue";
 import {FormBuilderSettings} from "@/types/Settings";
 
 @Component({
-  components: {VFormArrayObject, VFormObject, VEditContainerModal, VFormField}
+  components: {VEditContainerModal, VFormField}
 })
 export default class VFormContainer extends Vue {
 
