@@ -44,7 +44,7 @@
                   link
                   @click="fieldRemoved"
               >
-                <v-list-item-title>Entfernen</v-list-item-title>
+                <v-list-item-title>Remove</v-list-item-title>
               </v-list-item>
             </v-list>
           </v-menu>
@@ -53,7 +53,7 @@
 
       <draggable
           :list="properties"
-          class="list-group pl-10"
+          class="list-group"
           handle=".handle"
           :empty-insert-threshold="500"
           v-bind="dragOptions"
@@ -91,7 +91,6 @@
 
         <div
             v-if="properties.length < 1"
-
             slot="header"
             role="group"
             class="field-placeholder pl-10"
@@ -112,35 +111,6 @@
 
 </style>
 
-<style scoped>
-
-.handle {
-  cursor: grab;
-}
-
-.field-placeholder {
-  min-height: 60px;
-  align-items: center;
-  display: flex;
-}
-
-.container-header {
-  flex-grow: 1;
-}
-
-.container-box {
-  flex-grow: 1;
-  padding: 0 !important;
-}
-
-.container-content {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 12px 27px 12px 51px;
-}
-
-</style>
 
 <script lang="ts">
 import {Component, Emit, Inject, Prop, Vue} from 'vue-property-decorator';

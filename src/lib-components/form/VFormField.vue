@@ -1,15 +1,21 @@
 <template>
-  <v-list-item class="form-field">
-    <v-flex style="width: 100%;"
-            class="d-flex pr-3 pl-3 align-center justify-center">
+  <v-list-item class="container-box" style="width: 100%">
+    <v-flex class="container-content form-field">
       <v-icon
           size="30"
           class="mr-5 handle"
       >
         {{ icon }}
       </v-icon>
-      <span class="flex-grow-1">{{ value.title }}</span>
-      <span class="flex-grow-0 text-right mr-10">{{ value.fieldType }}</span>
+      <template v-if="value.fieldType === 'const'">
+        <span class="flex-grow-1">{{ fieldKey }}</span>
+        <span class="flex-grow-0 text-right mr-10">{{ value.fieldType }}</span>
+      </template>
+      <template v-else>
+        <span class="flex-grow-1">{{ value.title }}</span>
+        <span class="flex-grow-0 text-right mr-10">{{ value.fieldType }}</span>
+      </template>
+
       <v-menu
           top
           offset-x
@@ -36,7 +42,7 @@
               link
               @click="fieldRemoved"
           >
-            <v-list-item-title>Entfernen</v-list-item-title>
+            <v-list-item-title>Remove</v-list-item-title>
           </v-list-item>
         </v-list>
       </v-menu>
@@ -89,10 +95,6 @@ export default class VFormField extends Vue {
 </script>
 
 <style>
-
-.handle {
-  cursor: grab;
-}
 
 .form-field:hover {
   background-color: rgba(0, 0, 0, 0.1);

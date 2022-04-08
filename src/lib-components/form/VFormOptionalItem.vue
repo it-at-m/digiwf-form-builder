@@ -14,7 +14,7 @@
               size="30"
               class="mr-5 handle"
           >
-            mdi-crop-free
+            mdi-border-none
           </v-icon>
           <span class="font-weight-bold">{{ value.title }}</span>
           <v-spacer/>
@@ -61,22 +61,13 @@
       >
         <template v-for="property in properties">
           <v-form-field
-              v-if="!isObjectType(property) && !isArrayObjectType(property) && !isOptionalContainer(property)"
+              v-if="!isObjectType(property) && !isArrayObjectType(property)"
               :key="property[0]"
               :field-key="property[0]"
               :value="property[1]"
               @input="onFormFieldChanged"
               @remove="onFieldRemoved"
           />
-          <v-form-optional-container
-              :key="property[0]"
-              v-else-if="isOptionalContainer(property)"
-              :field-key="property[0]"
-              :value="property[1]"
-              @input="onFormFieldChanged"
-              @remove="onFieldRemoved">
-          </v-form-optional-container>
-
           <v-form-object
               :key="property[0]"
               v-else-if="isObjectType(property)"
@@ -115,12 +106,11 @@ import VFormField from "@/lib-components/form/VFormField.vue";
 import VEditContainerModal from "@/lib-components/modal/VEditContainerModal.vue";
 import {generateUUID} from "@/utils/UUIDGenerator";
 import {FormBuilderSettings} from "@/types/Settings";
-import VFormOptionalContainer from "@/lib-components/form/VFormOptionalContainer.vue";
 
 @Component({
-  components: {VFormOptionalContainer, VEditContainerModal, VFormField}
+  components: {VEditContainerModal, VFormField}
 })
-export default class VFormContainer extends Vue {
+export default class VFormOptionalItem extends Vue {
 
   dragOptions = {
     animation: 200,
@@ -149,12 +139,8 @@ export default class VFormContainer extends Vue {
     return Object.entries(this.value.properties);
   }
 
-  isOptionalContainer(container: any): boolean {
-    return container[1].fieldType === 'optionalContainer';
-  }
-
   isObjectType(field: any): boolean {
-    return field[1].fieldType === 'object';
+    return field.fieldType === 'object';
   }
 
   isArrayObjectType(field: any): boolean {
@@ -183,14 +169,6 @@ export default class VFormContainer extends Vue {
           properties: this.value.properties
         }
     );
-  }
-
-  uuid(optionalContainer: any): string {
-    if (optionalContainer.key) return optionalContainer.key;
-    const key = generateUUID();
-    this.$set(optionalContainer, "key", key);
-    this.input(this.value);
-    return optionalContainer.key;
   }
 
   onFieldRemoved(key: string): any {

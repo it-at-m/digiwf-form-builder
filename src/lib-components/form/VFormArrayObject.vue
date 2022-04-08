@@ -44,7 +44,7 @@
                   link
                   @click="fieldRemoved"
               >
-                <v-list-item-title>Entfernen</v-list-item-title>
+                <v-list-item-title>Remove</v-list-item-title>
               </v-list-item>
             </v-list>
           </v-menu>

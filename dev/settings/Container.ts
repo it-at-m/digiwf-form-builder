@@ -12,8 +12,10 @@ export default {
             "title": "General",
             "type": "object",
             "properties": {
-                "type": {
-                    "const": "object"
+                "groupType": {
+                    "type": "string",
+                    "title": "Type",
+                    "readOnly": true
                 },
                 "key": {
                     "type": "string",

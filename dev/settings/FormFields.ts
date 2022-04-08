@@ -490,6 +490,44 @@ const multiselectSchema = {
     ]
 };
 
+const constSchema = {
+    "title": "General",
+    "type": "object",
+    "properties": {
+        "fieldType": {
+            "type": "string",
+            "title": "Type",
+            "readOnly": true
+        },
+        "type": {
+            "type": "string",
+            "x-display": "hidden",
+        },
+        "key": {
+            "type": "string",
+            "title": "Key",
+            "x-props": {
+                "outlined": true,
+                "dense": true
+            },
+            "x-rules": [
+                "required"
+            ]
+        },
+        "const": {
+            "type": "string",
+            "title": "Const",
+            "x-props": {
+                "outlined": true,
+                "dense": true
+            },
+            "x-rules": [
+                "required"
+            ]
+        },
+    }
+}
+
 const arrayInput = {
     ...basicSchema,
     allOf: [
@@ -574,5 +612,6 @@ export const schemaMap: any = {
     "multiselect": multiselectSchema,
     "array": arrayInput,
     "arrayObject": arrayObjectInput,
-    "switch": switchSchema
+    "switch": switchSchema,
+    "const": constSchema
 };
