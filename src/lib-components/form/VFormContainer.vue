@@ -1,6 +1,6 @@
 <template>
   <v-list-item
-      class="container-box"
+      class="container-box pb-4"
   >
     <v-list-group
         no-action
@@ -49,61 +49,7 @@
         </v-flex>
       </template>
 
-      <draggable
-          :list="properties"
-          class="list-group pb-4"
-          handle=".handle"
-          :empty-insert-threshold="500"
-          v-bind="dragOptions"
-          @change="onDragChanged"
-          @start="drag = true"
-          @end="drag = false"
-      >
-        <template v-for="property in properties">
-          <v-form-field
-              v-if="!isObjectType(property) && !isArrayObjectType(property) && !isOptionalContainer(property)"
-              :key="property[0]"
-              :field-key="property[0]"
-              :value="property[1]"
-              @input="onFormFieldChanged"
-              @remove="onFieldRemoved"
-          />
-          <v-form-optional-container
-              :key="property[0]"
-              v-else-if="isOptionalContainer(property)"
-              :field-key="property[0]"
-              :value="property[1]"
-              @input="onFormFieldChanged"
-              @remove="onFieldRemoved">
-          </v-form-optional-container>
-
-          <v-form-object
-              :key="property[0]"
-              v-else-if="isObjectType(property)"
-              :field-key="property[0]"
-              :value="property[1]"
-              @input="onFormFieldChanged"
-              @remove="onFieldRemoved"
-          />
-
-          <v-form-array-object
-              :key="property[0]"
-              v-else-if="isArrayObjectType(property)"
-              :field-key="property[0]"
-              :value="property[1]"
-              @input="onFormFieldChanged"
-              @remove="onFieldRemoved"
-          />
-        </template>
-        <div
-            v-if="properties.length < 1"
-            slot="header"
-            role="group"
-            class="field-placeholder"
-        >
-          insert field
-        </div>
-      </draggable>
+      <v-container
     </v-list-group>
   </v-list-item>
 </template>

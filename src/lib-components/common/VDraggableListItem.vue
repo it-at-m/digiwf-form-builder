@@ -1,7 +1,7 @@
 <template>
   <v-list-item
-    link
-    class="handle"
+      link
+      class="handle"
   >
     <div class="box-view">
       <v-icon class="mr-2">
@@ -12,8 +12,8 @@
     <div :class="allDragClasses">
       <div class="d-flex flex-row">
         <v-icon
-          size="30"
-          class="mr-5 handle"
+            size="30"
+            class="mr-5 handle"
         >
           {{ icon }}
         </v-icon>
@@ -57,10 +57,3 @@ export default class VDraggableListItem extends Vue {
 }
 </script>
 
-<style>
-
-.drag-view {
-  display: none;
-}
-
-</style>

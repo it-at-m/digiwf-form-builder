@@ -102,16 +102,6 @@
   </v-list-item>
 </template>
 
-
-<style>
-.container-header > div:first-child {
-  padding: 0 !important;
-  margin: 0;
-}
-
-</style>
-
-
 <script lang="ts">
 import {Component, Emit, Inject, Prop, Vue} from 'vue-property-decorator';
 import {FormField} from "@/types/Form";

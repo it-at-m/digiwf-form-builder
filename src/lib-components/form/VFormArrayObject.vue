@@ -53,7 +53,7 @@
 
       <draggable
           :list="properties"
-          class="list-group pl-10"
+          class="list-group"
           handle=".handle"
           :empty-insert-threshold="500"
           v-bind="dragOptions"
@@ -102,45 +102,6 @@
     </v-list-group>
   </v-list-item>
 </template>
-
-
-<style>
-.container-header > div:first-child {
-  padding: 0 !important;
-  margin: 0;
-}
-
-</style>
-
-<style scoped>
-
-.handle {
-  cursor: grab;
-}
-
-.field-placeholder {
-  min-height: 60px;
-  align-items: center;
-  display: flex;
-}
-
-.container-header {
-  flex-grow: 1;
-}
-
-.container-box {
-  flex-grow: 1;
-  padding: 0 !important;
-}
-
-.container-content {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 12px 27px 12px 51px;
-}
-
-</style>
 
 <script lang="ts">
 import {Component, Emit, Inject, Prop, Vue} from 'vue-property-decorator';
