@@ -17,7 +17,8 @@ export const iconMap: any = {
     "objectGroup": "mdi-select-group",
     "arrayObject": "mdi-view-list",
     "optionalContainer": "mdi-border-none-variant",
-    "optionalContentItem": "mdi-border-none"
+    "optionalContentItem": "mdi-border-none",
+    "const": "mdi-crosshairs-gps"
 };
 
 export const defaultIcon = "mdi-text-short";

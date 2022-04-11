@@ -57,3 +57,9 @@ export default class VDraggableListItem extends Vue {
 }
 </script>
 
+<style>
+.drag-view {
+  display: none;
+}
+</style>
+

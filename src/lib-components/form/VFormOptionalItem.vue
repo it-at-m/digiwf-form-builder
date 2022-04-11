@@ -49,52 +49,8 @@
         </v-flex>
       </template>
 
-      <draggable
-          :list="properties"
-          class="list-group pb-4"
-          handle=".handle"
-          :empty-insert-threshold="500"
-          v-bind="dragOptions"
-          @change="onDragChanged"
-          @start="drag = true"
-          @end="drag = false"
-      >
-        <template v-for="property in properties">
-          <v-form-field
-              v-if="!isObjectType(property) && !isArrayObjectType(property)"
-              :key="property[0]"
-              :field-key="property[0]"
-              :value="property[1]"
-              @input="onFormFieldChanged"
-              @remove="onFieldRemoved"
-          />
-          <v-form-object
-              :key="property[0]"
-              v-else-if="isObjectType(property)"
-              :field-key="property[0]"
-              :value="property[1]"
-              @input="onFormFieldChanged"
-              @remove="onFieldRemoved"
-          />
+      <VPropertiesContainer @input="propertiesChanged" :dragOptions="dragOptions" :properties="properties"/>
 
-          <v-form-array-object
-              :key="property[0]"
-              v-else-if="isArrayObjectType(property)"
-              :field-key="property[0]"
-              :value="property[1]"
-              @input="onFormFieldChanged"
-              @remove="onFieldRemoved"
-          />
-        </template>
-        <div
-            v-if="properties.length < 1"
-            slot="header"
-            role="group"
-            class="field-placeholder"
-        >
-          insert field
-        </div>
-      </draggable>
     </v-list-group>
   </v-list-item>
 </template>
@@ -102,13 +58,11 @@
 <script lang="ts">
 import {Component, Emit, Inject, Prop, Vue} from 'vue-property-decorator';
 import {FormFieldContainer} from "@/types/Form";
-import VFormField from "@/lib-components/form/VFormField.vue";
 import VEditContainerModal from "@/lib-components/modal/VEditContainerModal.vue";
-import {generateUUID} from "@/utils/UUIDGenerator";
 import {FormBuilderSettings} from "@/types/Settings";
 
 @Component({
-  components: {VEditContainerModal, VFormField}
+  components: {VEditContainerModal}
 })
 export default class VFormOptionalItem extends Vue {
 
@@ -139,29 +93,6 @@ export default class VFormOptionalItem extends Vue {
     return Object.entries(this.value.properties);
   }
 
-  isObjectType(field: any): boolean {
-    return field.fieldType === 'object';
-  }
-
-  isArrayObjectType(field: any): boolean {
-    return field[1].fieldType === 'arrayObject' &&
-        field[1].items && field[1].items.type === 'object';
-  }
-
-  onDragChanged(event: any): void {
-    if (event && event.added) {
-      event.added.element[0] = generateUUID();
-    }
-    const props: any = {};
-    this.properties.forEach((property: any) => props[property[0]] = property[1]);
-    this.input(
-        {
-          ...this.value,
-          properties: props
-        }
-    );
-  }
-
   onContainerChanged(container: any): void {
     this.input(
         {
@@ -171,33 +102,11 @@ export default class VFormOptionalItem extends Vue {
     );
   }
 
-  onFieldRemoved(key: string): any {
-    const relevantFields = this.properties.filter((el: any) => el[0] != key);
-    const props: any = {};
-    relevantFields.forEach((property: any) => props[property[0]] = property[1]);
+  propertiesChanged(properties: any): void {
     this.input(
         {
           ...this.value,
-          properties: props
-        }
-    );
-  }
-
-  onFormFieldChanged(update: any) {
-    const props: any = {};
-    for (let i = 0; i < this.properties.length; i++) {
-      const property = this.properties[i];
-      if (property[0] === update.key) {
-        props[update.newKey] = update.value;
-      } else {
-        props[property[0]] = property[1];
-      }
-    }
-    this.value.properties = props;
-    this.input(
-        {
-          ...this.value,
-          properties: props
+          properties: properties
         }
     );
   }

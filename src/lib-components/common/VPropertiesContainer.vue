@@ -59,14 +59,20 @@
 <script lang="ts">
 import {Component, Emit, Prop, Vue} from 'vue-property-decorator';
 import {generateUUID} from "@/utils/UUIDGenerator";
+import VFormField from "@/lib-components/form/VFormField.vue";
+import VEditContainerModal from "@/lib-components/modal/VEditContainerModal.vue";
+import VFormOptionalContainer from "@/lib-components/form/VFormOptionalContainer.vue";
 
 @Component({
-  components: {}
+  components: {VFormOptionalContainer, VEditContainerModal, VFormField}
 })
-export default class VContainerItem extends Vue {
+export default class VPropertiesContainer extends Vue {
 
   @Prop()
   properties: any;
+
+  @Prop()
+  dragOptions: any;
 
   @Emit("input")
   input(value: any): any {

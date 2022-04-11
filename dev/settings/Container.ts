@@ -40,14 +40,6 @@ export default {
                         "outlined": true,
                         "dense": true
                     }
-                },
-                "x-if": {
-                    "type": "string",
-                    "title": "dispaly if",
-                    "x-props": {
-                        "outlined": true,
-                        "dense": true
-                    }
                 }
             }
         },

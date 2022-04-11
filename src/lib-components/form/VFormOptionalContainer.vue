@@ -80,14 +80,13 @@
 <script lang="ts">
 import {Component, Emit, Inject, Prop, Vue} from 'vue-property-decorator';
 import {Section} from "@/types/Form";
-import VFormContainer from "@/lib-components/form/VFormContainer.vue";
 import VEditSectionModal from "@/lib-components/modal/VEditSectionModal.vue";
 import {generateUUID} from "@/utils/UUIDGenerator";
 import {FormBuilderSettings} from "@/types/Settings";
 import VFormOptionalItem from "@/lib-components/form/VFormOptionalItem.vue";
 
 @Component({
-  components: {VFormOptionalItem, VEditSectionModal, VFormContainer}
+  components: {VFormOptionalItem, VEditSectionModal}
 })
 export default class VFormOptionalContainer extends Vue {
 

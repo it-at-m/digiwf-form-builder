@@ -49,7 +49,7 @@
         </v-flex>
       </template>
 
-      <v-container
+      <VPropertiesContainer @input="propertiesChanged" :dragOptions="dragOptions" :properties="properties"/>
     </v-list-group>
   </v-list-item>
 </template>
@@ -57,15 +57,9 @@
 <script lang="ts">
 import {Component, Emit, Inject, Prop, Vue} from 'vue-property-decorator';
 import {FormFieldContainer} from "@/types/Form";
-import VFormField from "@/lib-components/form/VFormField.vue";
-import VEditContainerModal from "@/lib-components/modal/VEditContainerModal.vue";
-import {generateUUID} from "@/utils/UUIDGenerator";
 import {FormBuilderSettings} from "@/types/Settings";
-import VFormOptionalContainer from "@/lib-components/form/VFormOptionalContainer.vue";
 
-@Component({
-  components: {VFormOptionalContainer, VEditContainerModal, VFormField}
-})
+@Component
 export default class VFormContainer extends Vue {
 
   dragOptions = {
@@ -95,33 +89,6 @@ export default class VFormContainer extends Vue {
     return Object.entries(this.value.properties);
   }
 
-  isOptionalContainer(container: any): boolean {
-    return container[1].fieldType === 'optionalContainer';
-  }
-
-  isObjectType(field: any): boolean {
-    return field[1].fieldType === 'object';
-  }
-
-  isArrayObjectType(field: any): boolean {
-    return field[1].fieldType === 'arrayObject' &&
-        field[1].items && field[1].items.type === 'object';
-  }
-
-  onDragChanged(event: any): void {
-    if (event && event.added) {
-      event.added.element[0] = generateUUID();
-    }
-    const props: any = {};
-    this.properties.forEach((property: any) => props[property[0]] = property[1]);
-    this.input(
-        {
-          ...this.value,
-          properties: props
-        }
-    );
-  }
-
   onContainerChanged(container: any): void {
     this.input(
         {
@@ -131,43 +98,15 @@ export default class VFormContainer extends Vue {
     );
   }
 
-  uuid(optionalContainer: any): string {
-    if (optionalContainer.key) return optionalContainer.key;
-    const key = generateUUID();
-    this.$set(optionalContainer, "key", key);
-    this.input(this.value);
-    return optionalContainer.key;
-  }
-
-  onFieldRemoved(key: string): any {
-    const relevantFields = this.properties.filter((el: any) => el[0] != key);
-    const props: any = {};
-    relevantFields.forEach((property: any) => props[property[0]] = property[1]);
+  propertiesChanged(properties: any): void {
     this.input(
         {
           ...this.value,
-          properties: props
+          properties: properties
         }
     );
   }
 
-  onFormFieldChanged(update: any) {
-    const props: any = {};
-    for (let i = 0; i < this.properties.length; i++) {
-      const property = this.properties[i];
-      if (property[0] === update.key) {
-        props[update.newKey] = update.value;
-      } else {
-        props[property[0]] = property[1];
-      }
-    }
-    this.value.properties = props;
-    this.input(
-        {
-          ...this.value,
-          properties: props
-        }
-    );
-  }
+
 }
 </script>
