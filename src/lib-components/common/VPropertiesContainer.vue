@@ -131,7 +131,3 @@ export default class VPropertiesContainer extends Vue {
 
 }
 </script>
-
-<style>
-
-</style>

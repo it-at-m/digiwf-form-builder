@@ -38,7 +38,9 @@
               :generic-schema="settings.defaultFormFieldSchema"
               @saved="onFieldChanged"
           />
+
           <v-list-item
+              v-if="value.fieldType !== 'const'"
               link
               @click="fieldRemoved"
           >

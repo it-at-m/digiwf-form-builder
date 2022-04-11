@@ -61,6 +61,8 @@
             v-for="optItem in value.oneOf"
             :key="uuid(optItem)"
             :value="optItem"
+            :default="value.default"
+            @defaultChanged="defaultChanged"
             @input="onContainerChanged"
             @remove="onContainerRemoved"
         />
@@ -122,6 +124,16 @@ export default class VFormOptionalContainer extends Vue {
     this.$set(container, "key", key);
     this.input(this.value);
     return container.key;
+  }
+
+  defaultChanged(value: any): void {
+    const defaultValue: any = {}
+    defaultValue[value[0]] = value[1].const;
+    const newSection = {
+      ...this.value,
+      "default": defaultValue
+    };
+    this.input(newSection);
   }
 
   onContainerChanged(container: any): void {
