@@ -1,22 +1,22 @@
 <template>
   <VDialogListItem
-    cancel-button-text="Abbrechen"
-    save-button-text="Speichern"
-    title="Bearbeiten"
-    :dialog="dialog"
-    @cancel="onCancelForm"
-    @save="onSaveForm"
+      cancel-button-text="Cancel"
+      save-button-text="Save"
+      title="Edit"
+      :dialog="dialog"
+      @cancel="onCancelForm"
+      @save="onSaveForm"
   >
     <template #default>
       <v-form
-        ref="form"
-        v-model="valid"
+          ref="form"
+          v-model="valid"
       >
         <v-json-renderer
-          style="min-height: 400px;"
-          :value="value"
-          :schema="schema"
-          @input="onFormUpdate"
+            style="min-height: 400px;"
+            :value="value"
+            :schema="schema"
+            @input="onFormUpdate"
         />
       </v-form>
     </template>

@@ -146,15 +146,78 @@ export const objectPalette = [
     ]
 ];
 
+export const optionalContent = [
+    [
+        "optionalContent",
+        {
+            fieldType: "optionalContainer",
+            title: "Optional Object",
+            type: "object",
+            description: "",
+            "x-options": {
+                "childrenClass": "pr-5 pl-0",
+
+                "fieldColProps": {
+                    "cols": 12,
+                    "sm": 12
+                }
+            },
+            "x-props": {
+                "outlined": true,
+                "dense": true
+            },
+            oneOf: []
+        }
+    ]
+];
+
+
+export const optionalItem = [
+    {
+        fieldType: "optionalContentItem",
+        title: "Optional Content Item",
+        description: "",
+        "x-options": {
+            "childrenClass": "pr-5 pl-0",
+        },
+        "properties": {
+            "selection": {
+                "fieldType": "const",
+                "type": "string",
+                "const": "selection1"
+            }
+        }
+    }
+];
+
 export const containerPalette = [
     {
+        containerType: "group",
         title: "Group",
         description: "",
-        type: "object",
         "x-options": {
             "childrenClass": "pr-5 pl-0",
         },
         properties: {}
+    },
+    {
+        containerType: "optionalContainer",
+        title: "Optional Container",
+        type: "object",
+        description: "",
+        "x-options": {
+            "childrenClass": "pr-5 pl-0",
+
+            "fieldColProps": {
+                "cols": 12,
+                "sm": 12
+            }
+        },
+        "x-props": {
+            "outlined": true,
+            "dense": true
+        },
+        oneOf: []
     }
 ];
 

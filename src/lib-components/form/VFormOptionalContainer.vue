@@ -1,17 +1,20 @@
 <template>
-  <v-card class="mb-3">
+  <v-list-item
+      class="container-box"
+  >
     <v-list-group
         no-action
-        class="section-header"
-        append-icon=""
+        sub-group
+        prepend-icon=""
+        class="container-header"
     >
       <template #activator>
-        <v-flex class="section-content">
+        <v-flex class="container-content">
           <v-icon
               size="30"
               class="mr-5 handle"
           >
-            mdi-tab
+            mdi-border-none-variant
           </v-icon>
           <span class="font-weight-bold">{{ value.title }}</span>
           <v-spacer/>
@@ -46,7 +49,7 @@
       </template>
 
       <draggable
-          :list="value.allOf"
+          :list="value.oneOf"
           class="list-group"
           handle=".handle"
           v-bind="dragOptions"
@@ -54,85 +57,55 @@
           @start="drag = true"
           @end="drag = false"
       >
-        <template v-for="container in value.allOf">
-          <v-form-optional-container
-              v-if="container.containerType === 'optionalContainer'"
-              :key="uuid(container)"
-              :value="container"
-              :isContainer="true"
-              @input="onContainerChanged"
-              @remove="onContainerRemoved"
-          />
-          <v-form-container
-              v-else
-              :key="uuid(container)"
-              :value="container"
-              @input="onContainerChanged"
-              @remove="onContainerRemoved"
-          />
-        </template>
+        <v-form-optional-item
+            v-for="optItem in value.oneOf"
+            :key="uuid(optItem)"
+            :value="optItem"
+            :default="value.default"
+            @defaultChanged="defaultChanged"
+            @input="onContainerChanged"
+            @remove="onContainerRemoved"
+        />
         <div
-            v-if="value.allOf < 1"
+            v-if="value.oneOf < 1"
             slot="header"
             role="group"
-            class="d-flex align-center"
-            style="min-height: 60px; margin-left: 30px"
+            class="field-placeholder"
         >
-          insert container
+          insert Item
         </div>
       </draggable>
     </v-list-group>
-  </v-card>
+  </v-list-item>
 </template>
-
-<style>
-
-.section-header > div:first-child {
-  background-color: #f4f4f4;
-}
-
-</style>
-
-<style scoped>
-
-.section-content {
-  width: 100%;
-  display: flex;
-  padding: 12px 5px 12px 12px;
-  align-items: center;
-  justify-content: center;
-}
-
-</style>
 
 <script lang="ts">
 import {Component, Emit, Inject, Prop, Vue} from 'vue-property-decorator';
-import {Container, Section} from "@/types/Form";
-import VFormContainer from "@/lib-components/form/VFormContainer.vue";
+import {Section} from "@/types/Form";
 import VEditSectionModal from "@/lib-components/modal/VEditSectionModal.vue";
 import {generateUUID} from "@/utils/UUIDGenerator";
 import {FormBuilderSettings} from "@/types/Settings";
-import VFormOptionalContainer from "@/lib-components/form/VFormOptionalContainer.vue";
+import VFormOptionalItem from "@/lib-components/form/VFormOptionalItem.vue";
 
 @Component({
-  components: {VFormOptionalContainer, VEditSectionModal, VFormContainer}
+  components: {VFormOptionalItem, VEditSectionModal}
 })
-export default class VFormSection extends Vue {
+export default class VFormOptionalContainer extends Vue {
 
   dragOptions = {
     animation: 200,
-    group: "container",
+    group: "optionalItem",
     disabled: false
   }
 
   @Prop()
-  value!: Section;
+  value!: any;
 
   @Inject("builderSettings")
   settings!: FormBuilderSettings;
 
   @Emit("input")
-  input(value: Section): any {
+  input(value: any): any {
     return value;
   }
 
@@ -145,7 +118,7 @@ export default class VFormSection extends Vue {
     this.input(this.value);
   }
 
-  uuid(container: Container): string {
+  uuid(container: any): string {
     if (container.key) return container.key;
     const key = generateUUID();
     this.$set(container, "key", key);
@@ -153,10 +126,20 @@ export default class VFormSection extends Vue {
     return container.key;
   }
 
-  onContainerChanged(container: Container): void {
-    for (let i = 0; i < this.value.allOf.length; i++) {
-      if (this.value.allOf[i].key === container.key) {
-        Vue.set(this.value.allOf, i, container);
+  defaultChanged(value: any): void {
+    const defaultValue: any = {}
+    defaultValue[value[0]] = value[1].const;
+    const newSection = {
+      ...this.value,
+      "default": defaultValue
+    };
+    this.input(newSection);
+  }
+
+  onContainerChanged(container: any): void {
+    for (let i = 0; i < this.value.oneOf.length; i++) {
+      if (this.value.oneOf[i].key === container.key) {
+        Vue.set(this.value.oneOf, i, container);
         this.input(this.value);
         return;
       }
@@ -166,13 +149,13 @@ export default class VFormSection extends Vue {
   onSectionChanged(section: Section): void {
     const newSection = {
       ...section,
-      allOf: this.value.allOf
+      oneOf: this.value.oneOf
     };
     this.input(newSection);
   }
 
   onContainerRemoved(key: string): any {
-    this.value.allOf = this.value.allOf.filter((el: Container) => el.key != key);
+    this.value.oneOf = this.value.oneOf.filter((el: any) => el.key != key);
     this.input(this.value);
   }
 

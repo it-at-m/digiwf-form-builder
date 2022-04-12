@@ -12,8 +12,10 @@ export default {
             "title": "General",
             "type": "object",
             "properties": {
-                "type": {
-                    "const": "object"
+                "groupType": {
+                    "type": "string",
+                    "title": "Type",
+                    "readOnly": true
                 },
                 "key": {
                     "type": "string",
@@ -34,14 +36,6 @@ export default {
                 "description": {
                     "type": "string",
                     "title": "Description",
-                    "x-props": {
-                        "outlined": true,
-                        "dense": true
-                    }
-                },
-                "x-if": {
-                    "type": "string",
-                    "title": "dispaly if",
                     "x-props": {
                         "outlined": true,
                         "dense": true

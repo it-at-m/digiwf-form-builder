@@ -44,6 +44,38 @@
   border-radius: 10px !important;
   background-color: white;
 }
+
+.container-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 20px;
+}
+
+.container-box {
+  padding-right: 0;
+}
+
+.container-header {
+  flex-grow: 1;
+}
+
+.container-header > div:first-child {
+  padding: 0 !important;
+  margin: 0;
+}
+
+.handle {
+  cursor: grab;
+}
+
+.field-placeholder {
+  min-height: 60px;
+  margin-left: 40px;
+  align-items: center;
+  display: flex;
+}
+
 </style>
 
 <style scoped>
