@@ -18,6 +18,7 @@ export default {
                 "key": {
                     "type": "string",
                     "title": "Key",
+                    "x-display": "hidden",
                     "readOnly": true
                 },
                 "title": {

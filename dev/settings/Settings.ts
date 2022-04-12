@@ -1,6 +1,6 @@
 import {FormBuilderSettings} from "@/types/Settings";
 import {containerIconMap, defaultContainerIcon, defaultIcon, iconMap} from "./IconMap";
-import container from "./Container";
+import {conditionalContainerSchema, containerSchema} from "./Container";
 import section from "./Section";
 import {
     containerPalette,
@@ -27,7 +27,8 @@ export const Settings: FormBuilderSettings = {
         optionalContent: optionalContent,
         optionalItem: optionalItem
     },
-    containerSchema: container,
+    containerSchema: containerSchema,
+    conditionalContainerSchema: conditionalContainerSchema,
     sectionSchema: section,
     defaultFormFieldSchema: genericSchema,
     formFieldSchemas: schemaMap
