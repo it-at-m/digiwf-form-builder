@@ -18,14 +18,14 @@
           @input="onFormFieldChanged"
           @remove="onFieldRemoved"
       />
-      <v-form-optional-container
+      <v-form-optional-object-container
           :key="property[0]"
           v-else-if="isOptionalContainer(property)"
           :field-key="property[0]"
           :value="property[1]"
           @input="onFormFieldChanged"
           @remove="onFieldRemoved">
-      </v-form-optional-container>
+      </v-form-optional-object-container>
 
       <v-form-object
           :key="property[0]"
@@ -62,9 +62,10 @@ import {generateUUID} from "@/utils/UUIDGenerator";
 import VFormField from "@/lib-components/form/VFormField.vue";
 import VEditContainerModal from "@/lib-components/modal/VEditContainerModal.vue";
 import VFormOptionalContainer from "@/lib-components/form/VFormOptionalContainer.vue";
+import VFormOptionalObjectContainer from "@/lib-components/form/VFormOptionalObjectContainer.vue";
 
 @Component({
-  components: {VFormOptionalContainer, VEditContainerModal, VFormField}
+  components: {VFormOptionalObjectContainer, VFormOptionalContainer, VEditContainerModal, VFormField}
 })
 export default class VPropertiesContainer extends Vue {
 

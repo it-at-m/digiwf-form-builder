@@ -21,4 +21,5 @@ export interface FormBuilderSettings {
     defaultFormFieldSchema: any;
     containerSchema: any;
     sectionSchema: any;
+    conditionalContainerSchema: any;
 }
