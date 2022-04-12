@@ -34,7 +34,7 @@
             <v-list>
               <v-edit-section-modal
                   :value="value"
-                  :schema="settings.sectionSchema"
+                  :schema="settings.conditionalContainerSchema"
                   @saved="onSectionChanged"
               />
               <v-list-item

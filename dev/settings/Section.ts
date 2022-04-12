@@ -39,14 +39,6 @@ export default {
                         "outlined": true,
                         "dense": true
                     }
-                },
-                "x-if": {
-                    "type": "string",
-                    "title": "display if",
-                    "x-props": {
-                        "outlined": true,
-                        "dense": true
-                    }
                 }
             }
         },

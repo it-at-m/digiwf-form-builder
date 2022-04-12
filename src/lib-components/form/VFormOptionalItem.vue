@@ -1,6 +1,6 @@
 <template>
   <v-list-item
-      class="container-box pb-4"
+      class="container-box"
   >
     <v-list-group
         no-action
@@ -14,10 +14,11 @@
               size="30"
               class="mr-5 handle"
           >
-            mdi-crop-free
+            mdi-border-none
           </v-icon>
           <span class="font-weight-bold">{{ value.title }}</span>
           <v-spacer/>
+          <span v-if=" isDefault" class="font-weight-bold mr-10">default</span>
           <v-menu
               top
               offset-x
@@ -44,23 +45,32 @@
               >
                 <v-list-item-title>Remove</v-list-item-title>
               </v-list-item>
+              <v-list-item
+                  link
+                  @click="setDefault"
+              >
+                <v-list-item-title>Default</v-list-item-title>
+              </v-list-item>
             </v-list>
           </v-menu>
         </v-flex>
       </template>
 
       <VPropertiesContainer @input="propertiesChanged" :dragOptions="dragOptions" :properties="properties"/>
+
     </v-list-group>
   </v-list-item>
 </template>
 
 <script lang="ts">
 import {Component, Emit, Inject, Prop, Vue} from 'vue-property-decorator';
-import {FormFieldContainer} from "@/types/Form";
+import VEditContainerModal from "@/lib-components/modal/VEditContainerModal.vue";
 import {FormBuilderSettings} from "@/types/Settings";
 
-@Component
-export default class VFormContainer extends Vue {
+@Component({
+  components: {VEditContainerModal}
+})
+export default class VFormOptionalItem extends Vue {
 
   dragOptions = {
     animation: 200,
@@ -70,15 +80,24 @@ export default class VFormContainer extends Vue {
   }
 
   @Prop()
-  value!: FormFieldContainer;
+  value!: any;
 
   @Inject("builderSettings")
   settings!: FormBuilderSettings;
 
   @Emit("input")
-  input(value: FormFieldContainer): any {
+  input(value: any): any {
     return value;
   }
+
+  @Prop()
+  default: any;
+
+  @Emit("defaultChanged")
+  setDefault(): any {
+    return this.extractKey();
+  }
+
 
   @Emit("remove")
   containerRemoved(): string {
@@ -87,6 +106,17 @@ export default class VFormContainer extends Vue {
 
   get properties(): any[] {
     return Object.entries(this.value.properties);
+  }
+
+  get isDefault(): boolean {
+    if (!this.default) {
+      return false;
+    }
+    return this.default && Object.entries(this.default)[0][1] === this.extractKey()[1].const;
+  }
+
+  extractKey(): any {
+    return Object.entries(this.value.properties).filter((obj: any) => obj[1]['const'])[0];
   }
 
   onContainerChanged(container: any): void {
@@ -106,7 +136,5 @@ export default class VFormContainer extends Vue {
         }
     );
   }
-
-
 }
 </script>

@@ -1,4 +1,4 @@
-export default {
+export const containerSchema = {
     "type": "object",
     "x-display": "tabs",
     "x-props": {
@@ -100,6 +100,12 @@ export const conditionalContainerSchema = {
                     "readOnly": true
                 },
                 "containerType": {
+                    "type": "string",
+                    "x-display": "hidden",
+                    "title": "Type",
+                    "readOnly": true
+                },
+                "fieldType": {
                     "type": "string",
                     "x-display": "hidden",
                     "title": "Type",
