@@ -1,22 +1,34 @@
 import {FormBuilderSettings} from "@/types/Settings";
-import {defaultIcon, iconMap} from "./IconMap";
-import container from "./Container";
+import {containerIconMap, defaultContainerIcon, defaultIcon, iconMap} from "./IconMap";
+import {conditionalContainerSchema, containerSchema} from "./Container";
 import section from "./Section";
-import {containerPalette, formFieldPalette, objectPalette, sectionPalette} from "./ModelerPalette";
+import {
+    containerPalette,
+    formFieldPalette,
+    objectPalette,
+    optionalContent,
+    optionalItem,
+    sectionPalette
+} from "./ModelerPalette";
 import {genericSchema, schemaMap} from "./FormFields";
 
 export const Settings: FormBuilderSettings = {
     iconSettings: {
+        containerIconMap: containerIconMap,
         iconMap: iconMap,
-        defaultIcon: defaultIcon
+        defaultIcon: defaultIcon,
+        defaultContainerIcon: defaultContainerIcon
     },
     modelerPalette: {
         formFields: formFieldPalette,
         containers: containerPalette,
         objects: objectPalette,
-        sections: sectionPalette
+        sections: sectionPalette,
+        optionalContent: optionalContent,
+        optionalItem: optionalItem
     },
-    containerSchema: container,
+    containerSchema: containerSchema,
+    conditionalContainerSchema: conditionalContainerSchema,
     sectionSchema: section,
     defaultFormFieldSchema: genericSchema,
     formFieldSchemas: schemaMap
