@@ -1,14 +1,14 @@
 <template>
   <v-dialog
-    v-model="isOpen"
-    persistent
-    max-width="800px"
+      v-model="isOpen"
+      persistent
+      max-width="800px"
   >
     <template #activator="{ on, attrs }">
       <v-list-item
-        link
-        v-bind="attrs"
-        v-on="on"
+          link
+          v-bind="attrs"
+          v-on="on"
       >
         {{ title }}
       </v-list-item>
@@ -25,17 +25,17 @@
       <v-card-actions>
         <v-spacer/>
         <v-btn
-          text
-          min-width="150"
-          outlined
-          @click="onCancel"
+            text
+            min-width="150"
+            outlined
+            @click="onCancel"
         >
           {{ cancelButtonText }}
         </v-btn>
         <v-btn
-          min-width="150"
-          color="primary"
-          @click="onSave"
+            min-width="150"
+            color="primary"
+            @click="onSave"
         >
           {{ saveButtonText }}
         </v-btn>
@@ -80,7 +80,3 @@ export default class VDialogListItem extends Vue {
 
 }
 </script>
-
-<style>
-
-</style>

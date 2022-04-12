@@ -51,14 +51,6 @@ const basicAttributes = {
                 "outlined": true,
                 "dense": true
             }
-        },
-        "x-if": {
-            "type": "string",
-            "title": "display if",
-            "x-props": {
-                "outlined": true,
-                "dense": true
-            }
         }
     }
 };
@@ -490,6 +482,44 @@ const multiselectSchema = {
     ]
 };
 
+const constSchema = {
+    "title": "General",
+    "type": "object",
+    "properties": {
+        "fieldType": {
+            "type": "string",
+            "title": "Type",
+            "readOnly": true
+        },
+        "type": {
+            "type": "string",
+            "x-display": "hidden",
+        },
+        "key": {
+            "type": "string",
+            "title": "Key",
+            "x-props": {
+                "outlined": true,
+                "dense": true
+            },
+            "x-rules": [
+                "required"
+            ]
+        },
+        "const": {
+            "type": "string",
+            "title": "Const",
+            "x-props": {
+                "outlined": true,
+                "dense": true
+            },
+            "x-rules": [
+                "required"
+            ]
+        },
+    }
+}
+
 const arrayInput = {
     ...basicSchema,
     allOf: [
@@ -523,6 +553,24 @@ const arrayInput = {
     ]
 };
 
+const objectInput = {
+    ...basicSchema,
+    allOf: [
+        {
+            ...basicAttributes,
+            properties: {
+                ...basicAttributes.properties,
+                "additionalProperties": {
+                    "const": false,
+                },
+            }
+        },
+        {
+            ...basicOptions
+        }
+    ]
+};
+
 const arrayObjectInput = {
     ...basicSchema,
     allOf: [
@@ -535,6 +583,9 @@ const arrayObjectInput = {
                     "properties": {
                         "type": {
                             "const": "object"
+                        },
+                        "additionalProperties": {
+                            "const": false,
                         },
                         "properties": {
                             "type": "object"
@@ -574,5 +625,8 @@ export const schemaMap: any = {
     "multiselect": multiselectSchema,
     "array": arrayInput,
     "arrayObject": arrayObjectInput,
-    "switch": switchSchema
+    "objectType": objectInput,
+    "object": objectInput,
+    "switch": switchSchema,
+    "const": constSchema
 };
