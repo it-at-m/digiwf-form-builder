@@ -58,8 +58,11 @@
 import {Component, Emit, Inject, Prop, Vue} from 'vue-property-decorator';
 import {FormFieldContainer} from "@/types/Form";
 import {FormBuilderSettings} from "@/types/Settings";
+import VEditContainerModal from "@/lib-components/modal/VEditContainerModal.vue";
 
-@Component
+@Component({
+  components: {VEditContainerModal}
+})
 export default class VFormContainer extends Vue {
 
   dragOptions = {
