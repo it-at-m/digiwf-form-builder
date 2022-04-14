@@ -57,7 +57,7 @@
           @start="drag = true"
           @end="drag = false"
       >
-        <v-form-optional-object-container
+        <v-form-optional-fields-container
             v-for="optItem in value.allOf"
             :key="uuid(optItem)"
             :value="optItem"
@@ -83,10 +83,10 @@ import {Section} from "@/types/Form";
 import VEditSectionModal from "@/lib-components/modal/VEditSectionModal.vue";
 import {generateUUID} from "@/utils/UUIDGenerator";
 import {FormBuilderSettings} from "@/types/Settings";
-import VFormOptionalObjectContainer from "@/lib-components/form/VFormOptionalObjectContainer.vue";
+import VFormOptionalFieldsContainer from "@/lib-components/form/VFormOptionalFieldsContainer.vue";
 
 @Component({
-  components: {VFormOptionalObjectContainer, VEditSectionModal}
+  components: {VFormOptionalFieldsContainer, VEditSectionModal}
 })
 export default class VFormOptionalContainer extends Vue {
 

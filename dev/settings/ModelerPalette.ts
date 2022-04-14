@@ -149,7 +149,7 @@ export const objectPalette = [
 export const optionalObject = [
     {
         fieldType: "optionalContainer",
-        title: "Optional Object",
+        title: "Optional Fields",
         type: "object",
         description: "",
         "x-options": {
@@ -173,12 +173,11 @@ export const optionalProperties = [
         "optionalProps",
         {
             fieldType: "optionalContainer",
-            title: "Optional Properties",
+            title: "Optional Group",
             type: "object",
             description: "",
             "x-options": {
                 "childrenClass": "pr-5 pl-0",
-
                 "fieldColProps": {
                     "cols": 12,
                     "sm": 12
@@ -197,7 +196,7 @@ export const optionalProperties = [
 export const optionalItem = [
     {
         fieldType: "optionalContentItem",
-        title: "Optional Content Item",
+        title: "Optional Select Item",
         description: "",
         "x-options": {
             "childrenClass": "pr-5 pl-0",
@@ -224,12 +223,11 @@ export const containerPalette = [
     },
     {
         containerType: "optionalContainer",
-        title: "Optional Container",
+        title: "Optionale Gruppe",
         type: "object",
         description: "",
         "x-options": {
-            "childrenClass": "pr-5 pl-0",
-
+            "sectionsTitlesClasses": ["d-none"],
             "fieldColProps": {
                 "cols": 12,
                 "sm": 12

@@ -98,6 +98,9 @@ export default class VFormOptionalObjectContainer extends Vue {
   }
 
   @Prop()
+  fieldKey!: string;
+
+  @Prop()
   value!: any;
 
   @Inject("builderSettings")
@@ -105,12 +108,16 @@ export default class VFormOptionalObjectContainer extends Vue {
 
   @Emit("input")
   input(value: any): any {
-    return value;
+    return {
+      key: this.fieldKey,
+      newKey: value.key,
+      value: value
+    };
   }
 
   @Emit("remove")
   removed(): string {
-    return this.value.key;
+    return this.fieldKey;
   }
 
   onListChanged(): void {
@@ -128,11 +135,12 @@ export default class VFormOptionalObjectContainer extends Vue {
   defaultChanged(value: any): void {
     const defaultValue: any = {}
     defaultValue[value[0]] = value[1].const;
-    const newSection = {
+    const newContainer = {
+      key: this.fieldKey,
       ...this.value,
       "default": defaultValue
     };
-    this.input(newSection);
+    this.input(newContainer);
   }
 
   onItemChanged(container: any): void {
@@ -140,6 +148,7 @@ export default class VFormOptionalObjectContainer extends Vue {
       if (this.value.oneOf[i].key === container.key) {
         Vue.set(this.value.oneOf, i, container);
         this.input({
+          key: this.fieldKey,
           ...this.value
         });
         return;
@@ -147,20 +156,23 @@ export default class VFormOptionalObjectContainer extends Vue {
     }
   }
 
+  onContainerChanged(section: any): void {
+    const newContainer = {
+      key: this.fieldKey,
+      ...section,
+      oneOf: this.value.oneOf
+    };
+    this.input(newContainer);
+  }
+
   onItemRemoved(key: string): any {
     this.value.oneOf = this.value.oneOf.filter((el: any) => el.key != key);
     this.input({
+      key: this.fieldKey,
       ...this.value
     });
   }
 
-  onContainerChanged(section: any): void {
-    const newSection = {
-      ...section,
-      oneOf: this.value.oneOf
-    };
-    this.input(newSection);
-  }
 }
 </script>
 
