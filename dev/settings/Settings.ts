@@ -6,8 +6,9 @@ import {
     containerPalette,
     formFieldPalette,
     objectPalette,
-    optionalContent,
     optionalItem,
+    optionalObject,
+    optionalProperties,
     sectionPalette
 } from "./ModelerPalette";
 import {genericSchema, schemaMap} from "./FormFields";
@@ -24,7 +25,8 @@ export const Settings: FormBuilderSettings = {
         containers: containerPalette,
         objects: objectPalette,
         sections: sectionPalette,
-        optionalContent: optionalContent,
+        optionalObject: optionalObject,
+        optionalProperties: optionalProperties,
         optionalItem: optionalItem
     },
     containerSchema: containerSchema,

@@ -42,7 +42,7 @@
           <v-list-item
               v-if="value.fieldType !== 'const'"
               link
-              @click="fieldRemoved"
+              @click="removed"
           >
             <v-list-item-title>Remove</v-list-item-title>
           </v-list-item>
@@ -81,6 +81,11 @@ export default class VFormField extends Vue {
     };
   }
 
+  @Emit("remove")
+  removed(): string {
+    return this.fieldKey;
+  }
+
   get icon(): string {
     return this.settings.iconSettings.iconMap[this.value.fieldType] ?? this.settings.iconSettings.defaultIcon;
   }
@@ -89,10 +94,6 @@ export default class VFormField extends Vue {
     this.input(field);
   }
 
-  @Emit("remove")
-  fieldRemoved(): string {
-    return this.fieldKey;
-  }
 }
 </script>
 
