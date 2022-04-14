@@ -159,9 +159,42 @@ export const conditionalContainerSchema = {
                             }
                         }
                     }
+                },
+                "x-props": {
+                    "type": "object",
+                    "description": "Ui",
+                    "properties": {
+                        "dense": {
+                            "type": "boolean",
+                            "title": "Dense",
+                            "x-props": {
+                                "outlined": true,
+                                "dense": true
+                            },
+                            "x-options": {
+                                "fieldColProps": {
+                                    "cols": 12,
+                                    "sm": 6
+                                }
+                            }
+                        },
+                        "outlined": {
+                            "type": "boolean",
+                            "title": "Outlined",
+                            "x-props": {
+                                "outlined": true,
+                                "dense": true
+                            },
+                            "x-options": {
+                                "fieldColProps": {
+                                    "cols": 12,
+                                    "sm": 6
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
-
     ]
 };

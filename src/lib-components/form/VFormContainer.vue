@@ -40,7 +40,7 @@
               />
               <v-list-item
                   link
-                  @click="containerRemoved"
+                  @click="removed"
               >
                 <v-list-item-title>Remove</v-list-item-title>
               </v-list-item>
@@ -84,7 +84,7 @@ export default class VFormContainer extends Vue {
   }
 
   @Emit("remove")
-  containerRemoved(): string {
+  removed(): string {
     return this.value.key;
   }
 

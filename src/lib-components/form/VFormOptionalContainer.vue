@@ -35,11 +35,11 @@
               <v-edit-section-modal
                   :value="value"
                   :schema="settings.conditionalContainerSchema"
-                  @saved="onSectionChanged"
+                  @saved="onContainerChanged"
               />
               <v-list-item
                   link
-                  @click="sectionRemoved"
+                  @click="removed"
               >
                 <v-list-item-title>Remove</v-list-item-title>
               </v-list-item>
@@ -49,7 +49,7 @@
       </template>
 
       <draggable
-          :list="value.oneOf"
+          :list="value.allOf"
           class="list-group"
           handle=".handle"
           v-bind="dragOptions"
@@ -57,17 +57,15 @@
           @start="drag = true"
           @end="drag = false"
       >
-        <v-form-optional-item
-            v-for="optItem in value.oneOf"
+        <v-form-optional-fields-container
+            v-for="optItem in value.allOf"
             :key="uuid(optItem)"
             :value="optItem"
-            :default="value.default"
-            @defaultChanged="defaultChanged"
-            @input="onContainerChanged"
-            @remove="onContainerRemoved"
+            @input="onItemChanged"
+            @remove="onItemRemoved"
         />
         <div
-            v-if="value.oneOf < 1"
+            v-if="value.allOf < 1"
             slot="header"
             role="group"
             class="field-placeholder"
@@ -85,16 +83,16 @@ import {Section} from "@/types/Form";
 import VEditSectionModal from "@/lib-components/modal/VEditSectionModal.vue";
 import {generateUUID} from "@/utils/UUIDGenerator";
 import {FormBuilderSettings} from "@/types/Settings";
-import VFormOptionalItem from "@/lib-components/form/VFormOptionalItem.vue";
+import VFormOptionalFieldsContainer from "@/lib-components/form/VFormOptionalFieldsContainer.vue";
 
 @Component({
-  components: {VFormOptionalItem, VEditSectionModal}
+  components: {VFormOptionalFieldsContainer, VEditSectionModal}
 })
 export default class VFormOptionalContainer extends Vue {
 
   dragOptions = {
     animation: 200,
-    group: "optionalItem",
+    group: "optionalContainer",
     disabled: false
   }
 
@@ -110,7 +108,7 @@ export default class VFormOptionalContainer extends Vue {
   }
 
   @Emit("remove")
-  sectionRemoved(): string {
+  removed(): string {
     return this.value.key;
   }
 
@@ -126,37 +124,27 @@ export default class VFormOptionalContainer extends Vue {
     return container.key;
   }
 
-  defaultChanged(value: any): void {
-    const defaultValue: any = {}
-    defaultValue[value[0]] = value[1].const;
-    const newSection = {
-      ...this.value,
-      "default": defaultValue
+  onContainerChanged(section: Section): void {
+    const newContainer = {
+      ...section,
+      allOf: this.value.allOf
     };
-    this.input(newSection);
+    this.input(newContainer);
   }
 
-  onContainerChanged(container: any): void {
-    for (let i = 0; i < this.value.oneOf.length; i++) {
-      if (this.value.oneOf[i].key === container.key) {
-        Vue.set(this.value.oneOf, i, container);
+  onItemRemoved(key: string): any {
+    this.value.allOf = this.value.allOf.filter((el: any) => el.key != key);
+    this.input(this.value);
+  }
+
+  onItemChanged(container: any): void {
+    for (let i = 0; i < this.value.allOf.length; i++) {
+      if (this.value.allOf[i].key === container.key) {
+        Vue.set(this.value.allOf, i, container);
         this.input(this.value);
         return;
       }
     }
-  }
-
-  onSectionChanged(section: Section): void {
-    const newSection = {
-      ...section,
-      oneOf: this.value.oneOf
-    };
-    this.input(newSection);
-  }
-
-  onContainerRemoved(key: string): any {
-    this.value.oneOf = this.value.oneOf.filter((el: any) => el.key != key);
-    this.input(this.value);
   }
 
 }

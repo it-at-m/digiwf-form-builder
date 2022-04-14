@@ -67,8 +67,8 @@
     <h4 class="pl-5">Optional Content</h4>
     <div class="field-divider"></div>
     <draggable
-        v-for="optContent in settings.modelerPalette.optionalContent"
-        :key="optContent[1].title"
+        v-for="optContent in settings.modelerPalette.optionalObject"
+        :key="optContent.title"
         :list="[optContent]"
         class="list-group"
         handle=".handle"
@@ -76,11 +76,29 @@
         v-bind="conditionalContentContainerDragOptions"
     >
       <v-draggable-list-item
-          :key="optContent[1].title"
+          :key="optContent.title"
           class="pl-5"
-          :icon="icon(optContent[1].fieldType)"
-          :name="optContent[1].title"
-          :new-name="optContent[1].title"
+          :icon="icon(optContent.fieldType)"
+          :name="optContent.title"
+          :new-name="optContent.title"
+          new-description=""
+      />
+    </draggable>
+    <draggable
+        v-for="field in settings.modelerPalette.optionalProperties"
+        :key="field[1].title"
+        :list="[field]"
+        class="list-group"
+        handle=".handle"
+        :clone="handleClone"
+        v-bind="formObjectDragOtions"
+    >
+      <v-draggable-list-item
+          :key="field[1].title"
+          class="pl-5"
+          :icon="icon(field[1].fieldType)"
+          :name="field[1].title"
+          :new-name="field[1].title"
           new-description=""
       />
     </draggable>
@@ -177,7 +195,7 @@ export default class VFormBuilderElements extends Vue {
 
   conditionalContentContainerDragOptions = {
     animation: 200,
-    group: {name: 'field', pull: 'clone', put: false},
+    group: {name: 'optionalContainer', pull: 'clone', put: false},
     disabled: false,
     chosenClass: "draggable",
   };
