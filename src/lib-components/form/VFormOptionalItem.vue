@@ -41,13 +41,13 @@
               />
               <v-list-item
                   link
-                  @click="containerRemoved"
+                  @click="removed"
               >
                 <v-list-item-title>Remove</v-list-item-title>
               </v-list-item>
               <v-list-item
                   link
-                  @click="setDefault"
+                  @click="defaultChanged"
               >
                 <v-list-item-title>Default</v-list-item-title>
               </v-list-item>
@@ -82,6 +82,9 @@ export default class VFormOptionalItem extends Vue {
   @Prop()
   value!: any;
 
+  @Prop()
+  default: any;
+
   @Inject("builderSettings")
   settings!: FormBuilderSettings;
 
@@ -90,17 +93,13 @@ export default class VFormOptionalItem extends Vue {
     return value;
   }
 
-  @Prop()
-  default: any;
-
   @Emit("defaultChanged")
-  setDefault(): any {
+  defaultChanged(): any {
     return this.extractKey();
   }
 
-
   @Emit("remove")
-  containerRemoved(): string {
+  removed(): string {
     return this.value.key;
   }
 

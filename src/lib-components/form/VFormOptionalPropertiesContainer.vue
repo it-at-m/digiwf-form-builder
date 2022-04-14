@@ -49,7 +49,7 @@
       </template>
 
       <draggable
-          :list="value.allOf"
+          :list="value.oneOf"
           class="list-group"
           handle=".handle"
           v-bind="dragOptions"
@@ -57,15 +57,17 @@
           @start="drag = true"
           @end="drag = false"
       >
-        <v-form-optional-object-container
-            v-for="optItem in value.allOf"
+        <v-form-optional-item
+            v-for="optItem in value.oneOf"
             :key="uuid(optItem)"
             :value="optItem"
+            :default="value.default"
+            @defaultChanged="defaultChanged"
             @input="onItemChanged"
             @remove="onItemRemoved"
         />
         <div
-            v-if="value.allOf < 1"
+            v-if="value.oneOf < 1"
             slot="header"
             role="group"
             class="field-placeholder"
@@ -79,22 +81,24 @@
 
 <script lang="ts">
 import {Component, Emit, Inject, Prop, Vue} from 'vue-property-decorator';
-import {Section} from "@/types/Form";
 import VEditSectionModal from "@/lib-components/modal/VEditSectionModal.vue";
 import {generateUUID} from "@/utils/UUIDGenerator";
 import {FormBuilderSettings} from "@/types/Settings";
-import VFormOptionalObjectContainer from "@/lib-components/form/VFormOptionalObjectContainer.vue";
+import VFormOptionalItem from "@/lib-components/form/VFormOptionalItem.vue";
 
 @Component({
-  components: {VFormOptionalObjectContainer, VEditSectionModal}
+  components: {VFormOptionalItem, VEditSectionModal}
 })
-export default class VFormOptionalContainer extends Vue {
+export default class VFormOptionalPropertiesContainer extends Vue {
 
   dragOptions = {
     animation: 200,
-    group: "optionalContainer",
+    group: "optionalItem",
     disabled: false
   }
+
+  @Prop()
+  fieldKey!: string;
 
   @Prop()
   value!: any;
@@ -104,12 +108,16 @@ export default class VFormOptionalContainer extends Vue {
 
   @Emit("input")
   input(value: any): any {
-    return value;
+    return {
+      key: this.fieldKey,
+      newKey: value.key,
+      value: value
+    };
   }
 
   @Emit("remove")
   removed(): string {
-    return this.value.key;
+    return this.fieldKey;
   }
 
   onListChanged(): void {
@@ -124,27 +132,45 @@ export default class VFormOptionalContainer extends Vue {
     return container.key;
   }
 
-  onContainerChanged(section: Section): void {
+  defaultChanged(value: any): void {
+    const defaultValue: any = {}
+    defaultValue[value[0]] = value[1].const;
     const newContainer = {
+      key: this.fieldKey,
+      ...this.value,
+      "default": defaultValue
+    };
+    this.input(newContainer);
+  }
+
+  onItemChanged(container: any): void {
+    for (let i = 0; i < this.value.oneOf.length; i++) {
+      if (this.value.oneOf[i].key === container.key) {
+        Vue.set(this.value.oneOf, i, container);
+        this.input({
+          key: this.fieldKey,
+          ...this.value
+        });
+        return;
+      }
+    }
+  }
+
+  onContainerChanged(section: any): void {
+    const newContainer = {
+      key: this.fieldKey,
       ...section,
-      allOf: this.value.allOf
+      oneOf: this.value.oneOf
     };
     this.input(newContainer);
   }
 
   onItemRemoved(key: string): any {
-    this.value.allOf = this.value.allOf.filter((el: any) => el.key != key);
-    this.input(this.value);
-  }
-
-  onItemChanged(container: any): void {
-    for (let i = 0; i < this.value.allOf.length; i++) {
-      if (this.value.allOf[i].key === container.key) {
-        Vue.set(this.value.allOf, i, container);
-        this.input(this.value);
-        return;
-      }
-    }
+    this.value.oneOf = this.value.oneOf.filter((el: any) => el.key != key);
+    this.input({
+      key: this.fieldKey,
+      ...this.value
+    });
   }
 
 }

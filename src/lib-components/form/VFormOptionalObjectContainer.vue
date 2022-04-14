@@ -35,11 +35,11 @@
               <v-edit-section-modal
                   :value="value"
                   :schema="settings.conditionalContainerSchema"
-                  @saved="onSectionChanged"
+                  @saved="onContainerChanged"
               />
               <v-list-item
                   link
-                  @click="containerRemoved"
+                  @click="removed"
               >
                 <v-list-item-title>Remove</v-list-item-title>
               </v-list-item>
@@ -63,8 +63,8 @@
             :value="optItem"
             :default="value.default"
             @defaultChanged="defaultChanged"
-            @input="onContainerChanged"
-            @remove="onContainerRemoved"
+            @input="onItemChanged"
+            @remove="onItemRemoved"
         />
         <div
             v-if="value.oneOf < 1"
@@ -98,9 +98,6 @@ export default class VFormOptionalObjectContainer extends Vue {
   }
 
   @Prop()
-  fieldKey!: string;
-
-  @Prop()
   value!: any;
 
   @Inject("builderSettings")
@@ -108,16 +105,12 @@ export default class VFormOptionalObjectContainer extends Vue {
 
   @Emit("input")
   input(value: any): any {
-    return {
-      key: this.fieldKey,
-      newKey: value.key,
-      value: value
-    };
+    return value;
   }
 
   @Emit("remove")
-  containerRemoved(): string {
-    return this.fieldKey;
+  removed(): string {
+    return this.value.key;
   }
 
   onListChanged(): void {
@@ -136,19 +129,17 @@ export default class VFormOptionalObjectContainer extends Vue {
     const defaultValue: any = {}
     defaultValue[value[0]] = value[1].const;
     const newSection = {
-      key: this.fieldKey,
       ...this.value,
       "default": defaultValue
     };
     this.input(newSection);
   }
 
-  onContainerChanged(container: any): void {
+  onItemChanged(container: any): void {
     for (let i = 0; i < this.value.oneOf.length; i++) {
       if (this.value.oneOf[i].key === container.key) {
         Vue.set(this.value.oneOf, i, container);
         this.input({
-          key: this.fieldKey,
           ...this.value
         });
         return;
@@ -156,23 +147,20 @@ export default class VFormOptionalObjectContainer extends Vue {
     }
   }
 
-  onSectionChanged(section: any): void {
+  onItemRemoved(key: string): any {
+    this.value.oneOf = this.value.oneOf.filter((el: any) => el.key != key);
+    this.input({
+      ...this.value
+    });
+  }
+
+  onContainerChanged(section: any): void {
     const newSection = {
-      key: this.fieldKey,
       ...section,
       oneOf: this.value.oneOf
     };
     this.input(newSection);
   }
-
-  onContainerRemoved(key: string): any {
-    this.value.oneOf = this.value.oneOf.filter((el: any) => el.key != key);
-    this.input({
-      key: this.fieldKey,
-      ...this.value
-    });
-  }
-
 }
 </script>
 

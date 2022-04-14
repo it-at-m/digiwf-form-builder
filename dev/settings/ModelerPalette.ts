@@ -146,12 +146,34 @@ export const objectPalette = [
     ]
 ];
 
-export const optionalContent = [
+export const optionalObject = [
+    {
+        fieldType: "optionalContainer",
+        title: "Optional Object",
+        type: "object",
+        description: "",
+        "x-options": {
+            "childrenClass": "pr-5 pl-0",
+
+            "fieldColProps": {
+                "cols": 12,
+                "sm": 12
+            }
+        },
+        "x-props": {
+            "outlined": true,
+            "dense": true
+        },
+        oneOf: []
+    }
+];
+
+export const optionalProperties = [
     [
-        "optionalContent",
+        "optionalProps",
         {
             fieldType: "optionalContainer",
-            title: "Optional Object",
+            title: "Optional Properties",
             type: "object",
             description: "",
             "x-options": {
@@ -217,7 +239,7 @@ export const containerPalette = [
             "outlined": true,
             "dense": true
         },
-        oneOf: []
+        allOf: []
     }
 ];
 

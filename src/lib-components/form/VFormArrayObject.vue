@@ -42,7 +42,7 @@
               />
               <v-list-item
                   link
-                  @click="fieldRemoved"
+                  @click="removed"
               >
                 <v-list-item-title>Remove</v-list-item-title>
               </v-list-item>
@@ -96,7 +96,7 @@ export default class VFormArrayObject extends Vue {
   }
 
   @Emit("remove")
-  fieldRemoved(): string {
+  removed(): string {
     return this.fieldKey;
   }
 
@@ -106,10 +106,6 @@ export default class VFormArrayObject extends Vue {
 
   icon(): string {
     return this.settings.iconSettings.iconMap[this.value.fieldType] ?? this.settings.iconSettings.defaultIcon;
-  }
-
-  isObjectType(field: any): boolean {
-    return field[1].fieldType === 'object';
   }
 
   onObjectChanged(container: any): void {

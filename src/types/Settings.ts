@@ -8,7 +8,8 @@ export interface IconSettings {
 export interface ModelerPaletteSettings {
     formFields: any[];
     containers: any[];
-    optionalContent: any[];
+    optionalObject: any[];
+    optionalProperties: any[];
     optionalItem: any[];
     objects: any[];
     sections: any[];
