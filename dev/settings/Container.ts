@@ -5,7 +5,7 @@ export const containerSchema = {
         "grow": true
     },
     "x-options": {
-        "childrenClass": "pr-5 pl-0",
+        "childrenClass": "pl-0",
     },
     "allOf": [
         {
@@ -83,7 +83,7 @@ export const conditionalContainerSchema = {
         "grow": true
     },
     "x-options": {
-        "childrenClass": "pr-5 pl-0",
+        "childrenClass": "pl-0",
     },
     "allOf": [
         {
