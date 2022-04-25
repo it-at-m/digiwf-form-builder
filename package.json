@@ -1,6 +1,6 @@
 {
   "name": "@muenchen/digiwf-form-builder",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "DigiWF JSON Schema form builder component lib",
   "license": "MIT",
   "main": "dist/digiwf-form-builder.ssr.js",
@@ -25,7 +25,7 @@
   },
   "dependencies": {
     "vuetify": "^2.6.3",
-    "@muenchen/digiwf-form-renderer": "^0.2.1"
+    "@muenchen/digiwf-form-renderer": "^0.4.0"
   },
   "peerDependencies": {
     "@koumoul/vjsf": "^2.11.3"

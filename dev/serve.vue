@@ -2,7 +2,7 @@
   <v-app style="background-color: aliceblue; padding: 5rem">
     <VFormBuilder @input="schemaChanged" :value="schema" :builder-settings="builderSettings"></VFormBuilder>
     <div style="background-color: white; padding: 10px">
-      <VJsonRenderer :schema="currentSchema"></VJsonRenderer>
+      <VJsonRenderer :options="{}" :schema="currentSchema"></VJsonRenderer>
     </div>
   </v-app>
 </template>
@@ -33,34 +33,10 @@ export default class App extends Vue {
       "type": "object",
       "x-options": {"sectionsTitlesClasses": ["d-none"]},
       "allOf": [{
-        "containerType": "optionalContainer",
-        "title": "Optional Container",
-        "type": "object",
-        "description": "",
-        "x-options": {"childrenClass": "pr-5 pl-0", "fieldColProps": {"cols": 12, "sm": 12}},
-        "x-props": {"outlined": true, "dense": true},
-        "oneOf": [{
-          "title": "Male",
-          "key": "37c6970f-94b5-46ad-a530-df8a9f410480",
-          "x-options": {"childrenClass": "pr-5 pl-0"},
-          "properties": {"gender": {"fieldType": "const", "type": "string", "const": "male", "key": "gender"}}
-        }, {
-          "title": "Female",
-          "key": "27564b1e-010a-4a0f-854d-0c7393fe4aa3",
-          "x-options": {"childrenClass": "pr-5 pl-0"},
-          "properties": {"gender": {"fieldType": "const", "type": "string", "const": "female", "key": "gender"}}
-        }, {
-          "title": "Diverse",
-          "key": "1d03a3d6-f896-442b-b4fc-c88c085c9094",
-          "x-options": {"childrenClass": "pr-5 pl-0"},
-          "properties": {"gender": {"fieldType": "const", "type": "string", "key": "gender", "const": "diverse"}}
-        }],
-        "key": "b0b78958-a273-4caa-8631-464f3cc4f975"
-      }, {
         "key": "group1",
         "title": "First Group",
         "type": "object",
-        "x-options": {"childrenClass": "pr-5 pl-0"},
+        "x-options": {"childrenClass": "pl-0"},
         "properties": {
           "stringProp1": {
             "fieldType": "text",
