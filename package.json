@@ -25,7 +25,7 @@
   },
   "dependencies": {
     "vuetify": "^2.6.3",
-    "@muenchen/digiwf-form-renderer": "^0.2.1"
+    "@muenchen/digiwf-form-renderer": "^0.4.0"
   },
   "peerDependencies": {
     "@koumoul/vjsf": "^2.11.3"
