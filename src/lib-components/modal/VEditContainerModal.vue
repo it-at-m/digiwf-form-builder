@@ -16,6 +16,7 @@
             style="min-height: 400px;"
             :value="value"
             :schema="schema"
+            :options="{}"
             @input="onFormUpdate"
         />
       </v-form>
