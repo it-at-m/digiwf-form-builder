@@ -2,7 +2,7 @@
   <v-app style="background-color: aliceblue; padding: 5rem">
     <VFormBuilder @input="schemaChanged" :value="schema" :builder-settings="builderSettings"></VFormBuilder>
     <div style="background-color: white; padding: 10px">
-      <VJsonRenderer :options="{}" :schema="currentSchema"></VJsonRenderer>
+      <VJsonRenderer @input="valueChanged" :options="{}" :schema="currentSchema"></VJsonRenderer>
     </div>
   </v-app>
 </template>
@@ -24,6 +24,10 @@ export default class App extends Vue {
   schemaChanged(schema: any): void {
     this.currentSchema = schema;
     this.$forceUpdate();
+  }
+
+  valueChanged(value: any): void {
+    console.log(value);
   }
 
   schema: any = {

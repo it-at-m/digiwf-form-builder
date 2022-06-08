@@ -32,9 +32,11 @@
               </v-btn>
             </template>
             <v-list>
-              <v-edit-section-modal
+              <v-edit-form-field-modal
                   :value="value"
-                  :schema="settings.conditionalContainerSchema"
+                  :field-key="fieldKey"
+                  :schemas="{'optionalContainer' : settings.conditionalContainerSchema} "
+                  :generic-schema="settings.conditionalContainerSchema"
                   @saved="onContainerChanged"
               />
               <v-list-item
@@ -85,9 +87,10 @@ import VEditSectionModal from "@/lib-components/modal/VEditSectionModal.vue";
 import {generateUUID} from "@/utils/UUIDGenerator";
 import {FormBuilderSettings} from "@/types/Settings";
 import VFormOptionalItem from "@/lib-components/form/VFormOptionalItem.vue";
+import VEditFormFieldModal from "@/lib-components/modal/VEditFormFieldModal.vue";
 
 @Component({
-  components: {VFormOptionalItem, VEditSectionModal}
+  components: {VFormOptionalItem, VEditSectionModal,VEditFormFieldModal}
 })
 export default class VFormOptionalObjectContainer extends Vue {
 

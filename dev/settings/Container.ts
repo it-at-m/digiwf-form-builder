@@ -95,9 +95,8 @@ export const conditionalContainerSchema = {
                 },
                 "key": {
                     "type": "string",
-                    "x-display": "hidden",
                     "title": "Key",
-                    "readOnly": true
+                    "readOnly": false
                 },
                 "containerType": {
                     "type": "string",
