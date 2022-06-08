@@ -96,6 +96,13 @@ export const conditionalContainerSchema = {
                 "key": {
                     "type": "string",
                     "title": "Key",
+                    "x-props": {
+                        "outlined": true,
+                        "dense": true
+                    },
+                    "x-rules": [
+                        "required"
+                    ],
                     "readOnly": false
                 },
                 "containerType": {
