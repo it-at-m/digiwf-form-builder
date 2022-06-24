@@ -1,30 +1,32 @@
 <template>
-  <div
-      class="d-flex h-100">
+  <div class="d-flex h-100">
     <VFormBuilderElements
-        :settings="builderSettings.modelerPalette"
-        :iconSettings="builderSettings.iconSettings"/>
-    <v-card
-        elevation="1"
-        class="contentWrapper modeler-area">
+      :settings="builderSettings.modelerPalette"
+      :iconSettings="builderSettings.iconSettings"
+    />
+    <v-card elevation="1" class="contentWrapper modeler-area">
+      <v-card-title class="pt-1">Mein Formularname</v-card-title>
+
+      <v-card-subtitle> Das ist meine Formularbeschreibung </v-card-subtitle>
+
       <v-list class="h-100">
         <draggable
-            :list="value.allOf"
-            class="list-group"
-            style="margin-bottom: 50px"
-            handle=".handle"
-            v-bind="dragOptions"
-            @change="onListChanged"
-            @start="drag = true"
-            @end="drag = false"
+          :list="value.allOf"
+          class="list-group"
+          style="margin-bottom: 50px"
+          handle=".handle"
+          v-bind="dragOptions"
+          @change="onListChanged"
+          @start="drag = true"
+          @end="drag = false"
         >
           <v-form-section
-              v-for="section in value.allOf"
-              :key="uuid(section)"
-              class="w-100"
-              :value="section"
-              @remove="onSectionRemoved"
-              @input="onSectionChanged"
+            v-for="section in value.allOf"
+            :key="uuid(section)"
+            class="w-100"
+            :value="section"
+            @remove="onSectionRemoved"
+            @input="onSectionChanged"
           />
         </draggable>
       </v-list>
@@ -33,7 +35,6 @@
 </template>
 
 <style>
-
 .container-header > div:first-child {
   padding: 0 !important;
   margin: 0;
@@ -75,11 +76,9 @@
   align-items: center;
   display: flex;
 }
-
 </style>
 
 <style scoped>
-
 .modeler-area {
   max-width: 1000px;
   min-height: 908px;
@@ -88,29 +87,27 @@
   flex-grow: 1;
   height: 100%;
 }
-
 </style>
 
 <script lang="ts">
-import {Component, Emit, Prop, Provide, Vue} from 'vue-property-decorator';
-import {Form, Section} from "@/types/Form";
+import { Component, Emit, Prop, Provide, Vue } from "vue-property-decorator";
+import { Form, Section } from "@/types/Form";
 import VFormSection from "@/lib-components/form/VFormSection.vue";
-import {generateUUID} from "@/utils/UUIDGenerator";
-import {FormBuilderSettings} from "@/types/Settings";
+import { generateUUID } from "@/utils/UUIDGenerator";
+import { FormBuilderSettings } from "@/types/Settings";
 import VFormBuilderElements from "@/lib-components/form/VFormBuilderElements.vue";
 
 @Component({
-  components: {VFormBuilderElements, VFormSection}
+  components: { VFormBuilderElements, VFormSection },
 })
 export default class VFormBuilder extends Vue {
-
   drag = false;
   dragOptions = {
     animation: 200,
     group: "section",
     disabled: false,
-    ghostClass: "ghost"
-  }
+    ghostClass: "ghost",
+  };
 
   @Prop()
   value!: Form;
@@ -150,6 +147,5 @@ export default class VFormBuilder extends Vue {
     this.value.allOf = this.value.allOf.filter((el: Section) => el.key != key);
     this.input();
   }
-
 }
 </script>
