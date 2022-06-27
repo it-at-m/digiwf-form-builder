@@ -5,9 +5,9 @@
       :iconSettings="builderSettings.iconSettings"
     />
     <v-card elevation="1" class="contentWrapper modeler-area">
-      <v-card-title class="pt-1">Mein Formularname</v-card-title>
+      <v-card-title class="pt-1">{{name}}</v-card-title>
 
-      <v-card-subtitle> Das ist meine Formularbeschreibung </v-card-subtitle>
+      <v-card-subtitle>{{description}}</v-card-subtitle>
 
       <v-list class="h-100">
         <draggable
@@ -111,6 +111,12 @@ export default class VFormBuilder extends Vue {
 
   @Prop()
   value!: Form;
+
+  @Prop()
+  name!: string;
+
+  @Prop()
+  description!: string;
 
   @Prop()
   @Provide("builderSettings")
