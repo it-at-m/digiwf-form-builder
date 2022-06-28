@@ -2,11 +2,15 @@
   <div
       class="d-flex h-100">
     <VFormBuilderElements
-        :settings="builderSettings.modelerPalette"
-        :iconSettings="builderSettings.iconSettings"/>
+      :settings="builderSettings.modelerPalette"
+      :iconSettings="builderSettings.iconSettings"/>
     <v-card
         elevation="1"
         class="contentWrapper modeler-area">
+      <v-card-title class="pt-1">{{ name }}</v-card-title>
+
+      <v-card-subtitle>{{ description }}</v-card-subtitle>
+
       <v-list class="h-100">
         <draggable
             :list="value.allOf"
@@ -114,6 +118,12 @@ export default class VFormBuilder extends Vue {
 
   @Prop()
   value!: Form;
+
+  @Prop()
+  name!: string;
+
+  @Prop()
+  description!: string;
 
   @Prop()
   @Provide("builderSettings")
