@@ -75,7 +75,27 @@ export default class App extends Vue {
             "format": "date",
             "title": "I am a date",
             "x-props": {"outlined": true, "dense": true}
+          },
+          "fileprop": {
+            "fieldType": "file",
+            "title": "We are files",
+            "x-display": "file",
+            "type": "string",
+            "filePath": "Documents/",
+            "x-options": {
+              "fieldColProps": {
+                "cols": 12,
+                "sm": 12,
+                "messages": {}
+              }
+            },
+            "x-props": {
+              "outlined": true,
+              "dense": true
+            },
+            "x-rules": []
           }
+
         }
       }]
     }]

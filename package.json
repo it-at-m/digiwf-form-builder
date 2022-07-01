@@ -1,6 +1,6 @@
 {
   "name": "@muenchen/digiwf-form-builder",
-  "version": "0.9.0",
+  "version": "0.10.0",
   "description": "DigiWF JSON Schema form builder component lib",
   "license": "MIT",
   "main": "dist/digiwf-form-builder.ssr.js",

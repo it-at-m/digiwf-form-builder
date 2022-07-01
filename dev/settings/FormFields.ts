@@ -35,7 +35,7 @@ const basicAttributes = {
         },
         "title": {
             "type": "string",
-            "title": "Titel",
+            "title": "Title",
             "x-props": {
                 "outlined": true,
                 "dense": true
@@ -382,7 +382,7 @@ const selectSchema = {
                         "properties": {
                             "title": {
                                 "type": "string",
-                                "title": "Titel",
+                                "title": "Title",
                                 "x-rules": [
                                     "required"
                                 ]
@@ -454,7 +454,7 @@ const multiselectSchema = {
                                 "properties": {
                                     "title": {
                                         "type": "string",
-                                        "title": "Titel",
+                                        "title": "Title",
                                         "x-rules": [
                                             "required"
                                         ]
@@ -519,6 +519,44 @@ const constSchema = {
         },
     }
 }
+
+const fileSchema = {
+  ...basicSchema,
+  allOf: [
+    {
+      ...basicAttributes,
+      properties: {
+        ...basicAttributes.properties,
+        "x-display": {
+          "const": "file"
+        },
+        "filePath": {
+          "type": "string",
+          "title": "File path",
+          "default": "/",
+          "x-props": {
+            "outlined": true,
+          },
+          "x-rules": [
+            "required"
+          ],
+          "x-options": {
+            "fieldColProps": {
+              "cols": 12,
+              "sm": 12
+            }
+          }
+        }
+      }
+    },
+    {
+      ...basicOptions
+    },
+    {
+      ...basicValidation
+    }
+  ]
+};
 
 const arrayInput = {
     ...basicSchema,
@@ -628,5 +666,6 @@ export const schemaMap: any = {
     "objectType": objectInput,
     "object": objectInput,
     "switch": switchSchema,
-    "const": constSchema
+    "const": constSchema,
+    "file": fileSchema
 };
