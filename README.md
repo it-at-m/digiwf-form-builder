@@ -83,9 +83,9 @@ _Below is an example of how you can installing and setup up your service_
 Run the following commands in your library:
 
 1. `npm run build`
-2. `npm run pack`
+2. `npm pack`
 
-Make sure you have provided all the necessary dependencies in your vuetify project and add the library vai `file path`:
+Make sure you have provided all the necessary dependencies in your vuetify project and add the library via `file path`:
 
 ```
 "digiwf-form-builder": "file:../digiwf-form-builder-0.0.1.tgz"
