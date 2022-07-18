@@ -80,7 +80,7 @@ export default class App extends Vue {
             "fieldType": "file",
             "title": "We are files",
             "x-display": "file",
-            "type": "string",
+            "type": "object",
             "filePath": "Documents/",
             "x-options": {
               "fieldColProps": {

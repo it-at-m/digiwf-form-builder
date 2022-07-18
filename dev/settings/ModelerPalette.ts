@@ -114,16 +114,24 @@ export const formFieldPalette = [
             }
         },
     ],
-  [
-    "file",
-    {
-      "fieldType": "file",
-      title: "Files",
-      "x-display": "file",
-      type: "string",
-      ...basicOptions
-    }
-  ],
+    [
+        "file",
+        {
+            "fieldType": "file",
+            title: "Files",
+            "x-display": "file",
+            type: "object",
+            ...basicOptions,
+            "properties": {
+                "key": {
+                    "type": "string"
+                },
+                "amount": {
+                    "type": "integer"
+                }
+            }
+        }
+    ],
 
 ];
 
