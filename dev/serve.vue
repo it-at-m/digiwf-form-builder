@@ -4,7 +4,6 @@
     <div style="background-color: white; padding: 10px">
       <VJsonRenderer @input="valueChanged" :options="{}" :schema="currentSchema"></VJsonRenderer>
     </div>
-    {{ currentSchema }}
   </v-app>
 </template>
 
