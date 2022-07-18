@@ -575,7 +575,7 @@ const fileSchema = {
             properties: {
                 "x-rules": {
                     "type": "array",
-                    "title": "Further rules",
+                    "title": "Rules",
                     "items": {
                         "type": "string",
                         "enum": [
