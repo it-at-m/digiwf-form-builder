@@ -571,7 +571,20 @@ const fileSchema = {
             ...basicOptions
         },
         {
-            ...basicValidation
+            ...basicValidation,
+            properties: {
+                "x-rules": {
+                    "type": "array",
+                    "title": "Further rules",
+                    "items": {
+                        "type": "string",
+                        "enum": [
+                            "requiredObject",
+                        ]
+                    },
+                    "x-display": "checkbox"
+                }
+            }
         }
     ]
 };
