@@ -4,6 +4,7 @@
     <div style="background-color: white; padding: 10px">
       <VJsonRenderer @input="valueChanged" :options="{}" :schema="currentSchema"></VJsonRenderer>
     </div>
+    {{ currentSchema }}
   </v-app>
 </template>
 
@@ -80,7 +81,7 @@ export default class App extends Vue {
             "fieldType": "file",
             "title": "We are files",
             "x-display": "file",
-            "type": "string",
+            "type": "object",
             "filePath": "Documents/",
             "x-options": {
               "fieldColProps": {

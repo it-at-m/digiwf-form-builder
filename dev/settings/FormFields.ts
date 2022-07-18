@@ -521,56 +521,59 @@ const constSchema = {
 }
 
 const fileSchema = {
-  ...basicSchema,
-  allOf: [
-    {
-      ...basicAttributes,
-      properties: {
-        ...basicAttributes.properties,
-        "x-display": {
-          "const": "file"
-        },
-        "filePath": {
-          "type": "string",
-          "title": "File path",
-          "default": "/",
-          "x-props": {
-            "outlined": true,
-          },
-          "x-rules": [
-            "required"
-          ],
-          "x-options": {
-            "fieldColProps": {
-              "cols": 12,
-              "sm": 12
+    ...basicSchema,
+    allOf: [
+        {
+            ...basicAttributes,
+            properties: {
+                ...basicAttributes.properties,
+                "x-display": {
+                    "const": "file"
+                },
+                "filePath": {
+                    "type": "string",
+                    "title": "File path",
+                    "default": "/",
+                    "x-props": {
+                        "outlined": true,
+                    },
+                    "x-rules": [
+                        "required"
+                    ],
+                    "x-options": {
+                        "fieldColProps": {
+                            "cols": 12,
+                            "sm": 12
+                        }
+                    }
+                },
+                "properties": {
+                    "const": {"key": {"type": "string"}, "amount": {"type": "integer"}}
+                },
+                "uuidEnabled": {
+                    "type": "boolean",
+                    "title": "Unique identifier?",
+                    "description": "Creates an unique identifier that is appended to the file path. Should be used in object lists.",
+                    "default": false,
+                    "x-props": {
+                        "outlined": true,
+                    },
+                    "x-options": {
+                        "fieldColProps": {
+                            "cols": 12,
+                            "sm": 12
+                        }
+                    }
+                }
             }
-          }
         },
-      "uuidEnabled": {
-          "type": "boolean",
-          "title": "Unique identifier?",
-          "description": "Creates an unique identifier that is appended to the file path. Should be used in object lists.",
-          "default": false,
-          "x-props": {
-              "outlined": true,
-          },
-          "x-options": {
-              "fieldColProps": {
-                  "cols": 12,
-                  "sm": 12
-              }
-          }
-      }
-      }
-    },
-    {
-      ...basicOptions
-    },
-    {
-      ...basicValidation
-    }
-  ]
+        {
+            ...basicOptions
+        },
+        {
+            ...basicValidation
+        }
+    ]
 };
 
 const arrayInput = {
